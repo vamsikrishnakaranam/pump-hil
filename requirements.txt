@@ -1,0 +1,7 @@
+python-can
+cantools
+pytest
+pytest-bdd
+pytest-html
+pyserial
+pyyaml

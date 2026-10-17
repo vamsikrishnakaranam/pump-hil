@@ -5,6 +5,7 @@ The rate signal in PUMP_STATUS (0x100) and PUMP_CMD (0x200) is an unsigned
 """
 import math
 
+
 RATE_SCALE = 0.1   # mL/h per raw count
 RATE_MIN = 1.0     # mL/h (SRS-002)
 RATE_MAX = 500.0   # mL/h (SRS-002)
@@ -16,10 +17,8 @@ def to_raw(value: float, *, scale: float = RATE_SCALE, offset: float = 0.0, bits
     Raises ValueError if the result does not fit in an unsigned field of `bits` bits.
     """
     raw = round((value - offset) / scale)
-    if 0 < raw <= (2**bits -1):
-        pass
-    else:
-        raise ValueError(f"{raw} does not fit in an unsigned field of {bits} bits")
+    if not 0 <= raw <= (2**bits - 1):
+        raise ValueError(f"{value} encodes to raw {raw}, which does not fit in {bits} unsigned bits")
     return raw
 
 def from_raw(raw: int, *, scale: float = RATE_SCALE, offset: float = 0.0) -> float:

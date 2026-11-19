@@ -1,4 +1,4 @@
-python-can
+python-can[gs-usb]
 cantools
 pytest
 pytest-bdd
